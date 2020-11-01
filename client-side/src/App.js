@@ -23,9 +23,11 @@ const App = () => {
 
   const onCreateNewCat = useCallback(
     async (newCatName) => {
+      console.log(newCatName);
       try {
         await axios.post(`${myCatServerBaseURL}/cats`, {
-          name: newCatName,
+          name: newCatName.name,
+          age: newCatName.age,
         });
         loadCats();
       } catch (error) {

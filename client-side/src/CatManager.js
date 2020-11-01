@@ -3,18 +3,28 @@ import "./CatManager.css";
 
 export default ({ cats = [], onCreateNewCat }) => {
   const [newCatName, setNewCatName] = useState("");
+  const [age, setAge] = useState("");
 
   const onNewCatNameChange = useCallback((event) => {
+    console.log(event.target.value);
     setNewCatName(event.target.value);
+  }, []);
+
+  const onNewCatAgeChange = useCallback((event) => {
+    console.log(event.target.value);
+    setAge(event.target.value);
   }, []);
 
   const onAddCat = useCallback(
     (event) => {
       event.preventDefault();
-      onCreateNewCat(newCatName);
+      console.log("name", newCatName);
+      console.log("age", age);
+      onCreateNewCat({ name: newCatName, age: age });
       setNewCatName("");
+      setAge("");
     },
-    [onCreateNewCat, newCatName]
+    [onCreateNewCat, newCatName, age]
   );
 
   return (
@@ -26,6 +36,12 @@ export default ({ cats = [], onCreateNewCat }) => {
             placeholder="Cat name..."
             value={newCatName}
             onChange={onNewCatNameChange}
+          />
+          <input
+            type="text"
+            placeholder="age"
+            value={age}
+            onChange={onNewCatAgeChange}
           />
           <button type="submit" onClick={onAddCat}>
             Create
